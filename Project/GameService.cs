@@ -244,13 +244,33 @@ As you wake from your deep slumber, you wonder where you are... You can't even r
 
     public void Help(string option)
     {
+      Console.Clear();
       System.Console.WriteLine($@"
-here are some helpful helping helper helps....
-NOT! you're in a cellar... BY. YOUR. SELF. no one is there to help you dummy.
+'go (direction)' - lets you travel from room to room
+'bag' - lets you check inventory
+'look' - lets you examine all items in the room
+'take (item)' - lets you pick up items
+'use (item)' - lets you use an item
+Some doors are locked and need a key used in the room to unlock the door.
+Rooms may not be visible without a source of light.
+Dungeon layout:
+___________
+|         |
+|  Final  |
+|_________|
+__________ ____________  ____________
+|  Sword | |           | |   Key     |
+| Shield                    Food     |
+|________| |____   ____| |___________|
+           _____   _____
+           |           |_______
+           |   START  <|_______Tunnel
+           |____[ ]____|
+            /       \
+            |  Pool |
+            \_______/
       ");
-      Thread.Sleep(5000);
-      System.Console.WriteLine("GAME OVER");
-      Run();
+      GetUserInput();
     }
 
     public void Inventory()
@@ -410,7 +430,6 @@ To your surprise it hits him right in the face upon which he inhales part of the
           var LockedRoom = (Room)CurrentRoom.NearbyRooms["west"];
           LockedRoom.IsLocked = false;
         }
-        CurrentPlayer.Inventory.Remove(InventoryItem);
         System.Console.WriteLine($"You used {option}!");
       }
       else
